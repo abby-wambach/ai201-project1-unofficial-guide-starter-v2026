@@ -20,11 +20,13 @@ pipeline earns credit; *"80% seemed reasonable"* does not.
 ## 1. Retrieved chunks contain the answer
 
 For at least 4 of my 5 test questions, the retrieved chunks include one that
-contains the answer.
+contains the answer (the expects phrase).
 
 **Why this target:**
 <!-- e.g. "One of my questions is about a topic only two documents mention, so
      I expect that one to be hard." -->
+
+One of my questions is about a topic that could live in two potential documents, so there's a chance the wrong one outranks the other even when the retrieval is mostly accurate.
 
 ---
 
@@ -35,6 +37,8 @@ Every answer the system produces names at least one source document.
 **Why this target:**
 <!-- Why all five and not four? What about your setup makes that achievable —
      or what would have to go wrong for it not to be? -->
+
+If the full pipeline runs correctly, every answer should produce its source. If not, something is broken.
 
 ---
 
@@ -53,6 +57,8 @@ in at least 4 of 5 tries.
 <!-- What did your distances look like when you set the cutoff in Milestone 4?
      Was there a clean gap, or did the two groups overlap? -->
 
+One of the out of scope questions could share wording/phrasing with one/more of my text files and latch onto it, which is a coincidence that is not likely but could occur.
+
 ---
 
 ## 4. Something about your chunks
@@ -69,11 +75,11 @@ in at least 4 of 5 tries.
        - "No chunk is shorter than 200 characters, since anything below that
           in my corpus turned out to be a heading with no content under it." -->
 
-
+At least 4 of 5 sampled chunks are 1-2 sentences, since that is the typical length in my corpus for answering my sample questions.
 
 **Why this target:**
 
-
+Each of my sample answers lives in a single sentence, and a second sentence is slack for adjacent context. Even though this is the typical length, if the chunking is based on paragraph, only 4 out of 5 is reasonable for any paragraphs containing >2 sentences.
 
 ---
 
@@ -87,11 +93,11 @@ in at least 4 of 5 tries.
      present — anything, as long as it names a number or an observable
      outcome. -->
 
-
+When I ask a relevant question, the system will produce an answer every time, and not produce an error or return "I don't have enough information about that".
 
 **Why this target:**
 
-
+Two criteria already test for whether the chunk contains the correct answer and for whether the system's relevance gate stops out of scope questions, but this one tests whether in scope questions get an answer at all.
 
 ---
 
