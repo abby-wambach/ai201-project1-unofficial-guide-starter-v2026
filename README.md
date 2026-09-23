@@ -102,14 +102,15 @@ The good: cheapest housing tier by about $900 a year, and the singles are real s
 <!-- One complete question and answer, pasted as text, with the source line
      visible. Milestone 4. -->
 
-**Question:**
+**Question:** What do students say about wait times at Kestrel Commons during lunch?
 
 **Answer:**
 
 ```
+According to the document, students state that the wait time at Kestrel Commons is 20 to 25 minutes between 12:15 and 1:00 (dining_kestrel_commons_followup.txt).
 ```
 
-**My relevance cutoff:**
+**My relevance cutoff:** 0.6
 
 <!-- The number you set in config.py, and how you got there.
 
@@ -122,7 +123,16 @@ The good: cheapest housing tier by about $900 a year, and the singles are real s
 
 | Question | In corpus? | Best distance |
 |---|---|---|
-|  |  |  |
+| How many hours a week can a student work an on-campus job during the term? | yes | 0.125 |
+| How long can you keep a library reserve copy of a textbook? | yes | 0.356 |
+| In CS 210, are the midterms curved? | yes | 0.443 |
+| What do students say about wait times at Kestrel Commons during lunch? | yes | 0.262 |
+| What do students say about noise levels in Aldridge Hall? | yes | 0.246 |
+| What is the capital of Mongolia? | no | 0.787 |
+| How do I change the oil in a diesel engine? | no | 0.923 |
+| Who won the 1994 World Cup? | no | 0.847 |
+| What is the recommended dosage of ibuprofen for a headache? | no | 0.849 |
+| How do I write a for loop in Rust? | no | 0.860 |
 
 ## How I Used AI
 
@@ -137,7 +147,7 @@ The good: cheapest housing tier by about $900 a year, and the singles are real s
 
 **1.** I asked Claude to write `split_documents` chunking by paragraph, assuming each paragraph was a separate student review. It checked my actual files and showed me that wasn't true — each document is one student's post. So I thought about it again, and came up with the idea to keep the paragraph split but fold the title into every chunk for context.
 
-**2.**
+**2.** I gave Claude the best distances for my five in-corpus questions and my five out-of-scope ones and asked where I'd put the cutoff and what I'd get wrong at that number. It worked out the gap (0.443 up to 0.787) and pointed out the starter's default of 0.6 already sat in the middle of it. So instead of changing anything, I kept 0.6.
 
 <!-- ── Stretch features ─────────────────────────────────────────────────────
      Doing one? Say so here BEFORE you start. A feature this README never
