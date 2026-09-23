@@ -1,6 +1,6 @@
 # The Unofficial Guide
 
-<!-- Replace this line with your name and which corpus you picked. -->
+Abigail Wambach, Corpus 'campus_life'
 
 > **This file is your submission.** Fill it in as you go — most sections get
 > written during the milestone that produces them, not at the end.
@@ -27,10 +27,12 @@
 
      Milestone 5. -->
 
+The Unofficial Guide answers questions about student life at a university using the `campus_life` corpus, which contains 88 short, single-author posts on courses, dining halls, dorms, and the admin rules nobody explains properly. Someone asks a question in plain English and the system retrieves the chunks whose meaning is closest to it and answers using only what those chunks say, naming the source file it pulled from. Questions "out of bounds" of the corpus get refused instead of a guessed answer.
+
 ## Chunking Strategy
 
-**Chunk size:**
-**Overlap:**
+**Chunk size:** variable — one paragraph per chunk (63–397 characters in this corpus)
+**Overlap:** none between paragraphs; the document's title line is folded into every chunk instead, so no chunk loses its subject
 
 <!-- What about YOUR documents made you pick these numbers? Short posts and
      long sectioned guides don't want the same chunking, and "800 seemed
@@ -41,6 +43,8 @@
      more than pretending you got it right first time.
 
      Milestone 3. -->
+
+Every document in my corpus is under 800 characters, so the default chunker (chunk_size=800) never actually split anything — 88 documents in, 88 identical chunks out. When I read the documents in Milestone 1, I noticed most are one student's post: a title line, then two to four short paragraphs, each usually its own thought (a "the good," a "the bad," a follow-up fact). So I switched `split_documents` to split on those paragraph breaks instead of character counts, keeping each thought as its own chunk instead of bundling several into one. The catch was that a lone paragraph like "the elevator is out one week a semester" doesn't say which building it's about anymore, so I fold the title into every chunk instead of making it a chunk of its own.
 
 ## Sample Chunks
 
@@ -53,29 +57,44 @@
 
      Milestone 3. -->
 
-**Chunk 1** — source: `` — produced by: ``
+**Chunk 1** — source: `admin_add_drop_deadline.txt#0` — produced by: `chunker.py::split_documents`
 
 ```
+On the add/drop deadline
+
+You can add a course through the end of the second week. Dropping is a longer window — through the end of week six — but a drop after week two shows as a W on your transcript. Nothing anywhere on the registrar's site says this plainly, and students find out from each other.
 ```
 
-**Chunk 2** — source: `` — produced by: ``
+**Chunk 2** — source: `course_cs_340_exams.txt#1` — produced by: `chunker.py::split_documents`
 
 ```
+CS 340 Databases — assessment
+
+Start the term project in week three, not week eight; everyone learns this the hard way.
 ```
 
-**Chunk 3** — source: `` — produced by: ``
+**Chunk 3** — source: `course_phys_130_workload.txt#0` — produced by: `chunker.py::split_documents`
 
 ```
+Workload for PHYS 130 Mechanics
+
+People keep asking so: 7 hours a week, plus 3 on lab weeks. That's real time, not optimistic time.
 ```
 
-**Chunk 4** — source: `` — produced by: ``
+**Chunk 4** — source: `dining_verrill_street_grill_followup.txt#1` — produced by: `chunker.py::split_documents`
 
 ```
+Re: Verrill Street Grill
+
+Also worth saying: one register, so the queue is a single line no matter how busy. Nobody tells you this at orientation.
 ```
 
-**Chunk 5** — source: `` — produced by: ``
+**Chunk 5** — source: `housing_morrow_house.txt#1` — produced by: `chunker.py::split_documents`
 
 ```
+Morrow House — what it's actually like
+
+The good: cheapest housing tier by about $900 a year, and the singles are real singles.
 ```
 
 ## Sample Answer
@@ -116,7 +135,7 @@
 
      Milestone 5. -->
 
-**1.**
+**1.** I asked Claude to write `split_documents` chunking by paragraph, assuming each paragraph was a separate student review. It checked my actual files and showed me that wasn't true — each document is one student's post. So I thought about it again, and came up with the idea to keep the paragraph split but fold the title into every chunk for context.
 
 **2.**
 
