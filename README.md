@@ -216,11 +216,11 @@ Refused 5 of 5.
 
 | # | Criterion | Verdict | How I decided |
 |---|---|---|---|
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
+| 1 | Retrieved chunk contains the answer | MET | Target was 4 of 5; all three runs came back 5 of 5, and it held the same way every time since retrieval doesn't change between runs. |
+| 2 | Every answer names a source | MET | Target was 5 of 5; every answer in all three runs named its source file. |
+| 3 | Gate stops out-of-corpus questions | MET | Target was 4 of 5; the gate refused 5 of 5, with real distance to spare (closest out-of-scope distance was 0.787, well above the 0.6 cutoff). |
+| 4 | At least 4 of 5 sampled chunks are 1-2 sentences | MET | I counted sentences in the 5 chunks under Sample Chunks: chunks 2, 3, 4, and 5 are 1-2 sentences, chunk 1 has 3. That's 4 of 5, which is my target exactly, so it's met, just barely. |
+| 5 | Every relevant question gets an answer, no refusal or error | MET | Target was 5 of 5; all five in-corpus questions passed the gate and got an answer in every run. |
 
 ## Diagnoses
 
