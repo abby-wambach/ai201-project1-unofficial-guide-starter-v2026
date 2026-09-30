@@ -164,15 +164,44 @@ According to the document, students state that the wait time at Kestrel Commons 
 
 | Criterion | Target | Run 1 | Run 2 | Run 3 | Verdict |
 |---|---|---|---|---|---|
-| 1. Retrieved chunk contains the answer | 4 of 5 |  |  |  |  |
-| 2. Every answer names a source | 5 of 5 |  |  |  |  |
-| 3. Gate stops out-of-corpus questions | 4 of 5 |  |  |  |  |
-| 4. | | | | | |
-| 5. | | | | | |
+| 1. Retrieved chunk contains the answer | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 2. Every answer names a source | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 3. Gate stops out-of-corpus questions | 4 of 5 | 5/5 | 5/5 | 5/5 | MET |
+| 4. At least 4 of 5 sampled chunks are 1-2 sentences | 4 of 5 | 4/5 | 4/5 | 4/5 | MET |
+| 5. Every relevant question gets an answer, no refusal or error | 5 of 5 | 5/5 | 5/5 | 5/5 | MET |
 
 <!-- Underneath, paste the REAL output for each criterion from one of your
      runs — the actual text your system produced, not a description of it.
      Name the file and function that produced it. -->
+
+Produced by `run_eval.py::main`, retrieval from `store.py::search`, chunks from `chunker.py::split_documents`. Full file: `results/run_2026-09-30_0031_before.md`.
+
+**Evidence for criteria 1, 2, and 5** — "How long can you keep a library reserve copy of a textbook?", run 1:
+
+- Best distance: 0.3560 (passed the gate — answers criterion 5, it didn't refuse)
+- Sources retrieved: admin_library_holds.txt, money_textbooks.txt, study_group_rooms.txt, study_library_hours.txt
+
+```
+The library holds one copy of most required texts on two-hour reserve. 
+
+Source: money_textbooks.txt
+```
+
+The retrieved chunk contains the answer, "two-hour reserve" (criterion 1), and the answer names its source, `money_textbooks.txt` (criterion 2).
+
+**Evidence for criterion 3** — produced by `run_eval.py::check_out_of_scope`, cutoff 0.6:
+
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.787 | refused |
+| How do I change the oil in a diesel engine? | 0.923 | refused |
+| Who won the 1994 World Cup? | 0.847 | refused |
+| What is the recommended dosage of ibuprofen for a headache? | 0.849 | refused |
+| How do I write a for loop in Rust? | 0.860 | refused |
+
+Refused 5 of 5.
+
+**Evidence for criterion 4** — the five chunks already pasted under Sample Chunks above, produced by `chunker.py::split_documents`.
 
 ## Verdicts
 
